@@ -7,7 +7,7 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-
+    scrMain();
 }
 
 /**
@@ -55,5 +55,7 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+
+    guiInit();
 
 }
