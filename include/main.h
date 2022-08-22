@@ -43,6 +43,8 @@
 #include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
 #include "gui/gui.hpp"
+#include "subsystems/drive.hpp"
+#include "subsystems/flywheel.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
