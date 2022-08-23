@@ -1,10 +1,11 @@
 #include "main.h"
 
 
-//variables
+/////////////////////////////////
+//OBJECTS
+/////////////////////////////////
 
 
-//object variables
 lv_obj_t * blueBtn;
 lv_obj_t * blueBtnLabel;
 
@@ -37,7 +38,13 @@ lv_obj_t * scr2Btnm; //scrRed
 lv_obj_t * scr3Btnm; //scrSkills
 
 
-//style variables
+
+
+/////////////////////////////////
+//STYLES
+/////////////////////////////////
+
+
 static lv_style_t blueBtnStyleREL; //released style
 static lv_style_t blueBtnStylePR; //pressed style
 
@@ -68,7 +75,11 @@ static lv_style_t scr3BtnmStylePR;
 
 
 
-//btnm functions
+/////////////////////////////////
+//BUTTON MAPS/GRIDS
+/////////////////////////////////
+
+
 static lv_res_t blueBtnmAction(lv_obj_t *, const char *)
 {
 
@@ -101,7 +112,11 @@ static lv_res_t skillsBtnmAction(lv_obj_t *, const char *)
 
 
 
-//screen functions
+/////////////////////////////////
+//SCREENS
+/////////////////////////////////
+
+
 void scrMain()
 {
     lv_style_copy(&scr0Style, &lv_style_plain);
@@ -121,8 +136,6 @@ void scrMain()
     lv_scr_load(scr0);
 
 }
-
-
 
 void scrBlue()
 {
@@ -171,8 +184,6 @@ void scrBlue()
 
 }
 
-
-
 void scrRed()
 {
     lv_style_copy(&scr2Style, &lv_style_plain);
@@ -212,8 +223,6 @@ void scrRed()
 
     lv_scr_load(scr2);
 }
-
-
 
 void scrSkills()
 {
@@ -274,8 +283,11 @@ void scrDiag()
 
 
 
+/////////////////////////////////
+//BUTTON ACTIONS
+/////////////////////////////////
 
-//button actions
+
 static lv_res_t blueBtnAction(lv_obj_t * btn)
 {
     //changes all buttons that arent blue to be disabled
@@ -327,8 +339,11 @@ static lv_res_t diagBtnAction(lv_obj_t * btn)
 
 
 
+/////////////////////////////////
+//BUTTONS
+////////////////////////////////
 
-//button functions
+
 void blueBtnTop()
 {
 
@@ -363,8 +378,6 @@ void blueBtnTop()
 
 }
 
-
-
 void redBtnTop()
 {
     lv_style_copy(&redBtnStyleREL, &lv_style_plain);
@@ -397,8 +410,6 @@ void redBtnTop()
     lv_label_set_text(redBtnLabel, "RED"); //sets label text
 }
 
-
-
 void skillsBtnTop()
 {
     lv_style_copy(&skillsBtnStyleREL, &lv_style_plain);
@@ -430,8 +441,6 @@ void skillsBtnTop()
     skillsBtnLabel = lv_label_create(skillsBtn, NULL); //create label and puts it inside of the button
     lv_label_set_text(skillsBtnLabel, "SKILLS"); //sets label text
 }
-
-
 
 void diagBtnTop()
 {
@@ -469,14 +478,15 @@ void diagBtnTop()
 
 
 
+/////////////////////////////////
+//INITIALIZE
+/////////////////////////////////
+
 
 void guiInit()
 {
-
     blueBtnTop();
     diagBtnTop();
     redBtnTop();
     skillsBtnTop();
-    
-
 }

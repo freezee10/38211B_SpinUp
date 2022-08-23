@@ -41,8 +41,6 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-    pros::Task drivePIDTask(drivePID);
-
 
 }
 
@@ -61,7 +59,8 @@ void autonomous() {
  */
 void opcontrol() {
     enablePID = false;
-    pros::Task flywheelTask(flywheel);
+    pros::Task drivePIDTask(drivePID);
+    //pros::Task flywheelTask(flywheel);
     //pros::Task driveTask(drive);
         
 

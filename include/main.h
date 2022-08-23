@@ -42,7 +42,8 @@
  */
 #include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
-#include "gui/gui.hpp"
+#include "globals.hpp"
+#include "subsystems/gui/gui.hpp"
 #include "subsystems/drive.hpp"
 #include "subsystems/flywheel.hpp"
 

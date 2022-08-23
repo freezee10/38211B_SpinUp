@@ -1,42 +1,9 @@
 #include "main.h"
 #include "pros/misc.h"
 
-pros::Motor leftFront(1, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_ROTATIONS);
-pros::Motor leftBack(2, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_ROTATIONS);
-pros::Motor rightFront(3, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_ROTATIONS);
-pros::Motor rightBack(4, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_ROTATIONS); 
-
-pros::Controller controller(pros::E_CONTROLLER_MASTER);
-
-//globals
-bool enablePID;
-bool resetMotors;
-
-
-
-float kP = 1;
-//float kI = 0.0;
-float kD = 0.0;
-float turnkP = 0.0;
-//float turnkI = 0.0;
-float turnkD = 0.0;
-
-int desiredValue = 20;
-int desiredTurnValue = 0;
-
-float error; //Sensor Value - Desired Value || Positional Value
-float prevError; //Pos 10ms ago
-float derivative; //error - prevError || Speed
-//float totalError; //totalError + error
-
-float turnError; //Sensor Value - Desired Value || Positional Value
-float turnPrevError; //Pos 10ms ago
-float turnDerivative; //turnError - turnPrevError || Speed
-//float turnTotalError; //turnTotalError + turnError
-
 
 /////////////////////////////////
-//DRIVER CONTROL FUNCTIONS
+//DRIVER CONTROL
 /////////////////////////////////
 
 
@@ -46,14 +13,6 @@ void setDrive(int left, int right)
     leftBack.move(left);
     rightFront.move(right);
     rightBack.move(right);
-}
-
-void driveInit()
-{
-    leftFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-    leftBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-    rightFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-    rightBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 }
 
 void drive()
@@ -112,9 +71,33 @@ void drive()
 }
 
 
+
+
 ///////////////////////////
-//PID FUNCTIONS
+//PID
 ///////////////////////////
+
+
+float kP = 1;
+//float kI = 0.0;
+float kD = 0.0;
+float turnkP = 0.0;
+//float turnkI = 0.0;
+float turnkD = 0.0;
+
+int desiredValue = 20;
+int desiredTurnValue = 0;
+
+int error; //Sensor Value - Desired Value || Positional Value
+int prevError; //Pos 10ms ago
+int derivative; //error - prevError || Speed
+int totalError; //totalError + error
+
+int turnError; //Sensor Value - Desired Value || Positional Value
+int turnPrevError; //Pos 10ms ago
+int turnDerivative; //turnError - turnPrevError || Speed
+int turnTotalError; //turnTotalError + turnError
+
 
 void drivePID()
 {
@@ -178,4 +161,20 @@ void drivePID()
         pros::delay(10);
 
     }
+}
+
+
+
+
+/////////////////////////////////
+//INITIALIZE
+/////////////////////////////////
+
+
+void driveInit()
+{
+    leftFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    leftBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    rightFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    rightBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 }
