@@ -309,7 +309,8 @@
     "upload_options": {
       "description": "chill brah",
       "icon": "power",
-      "after": "screen"
+      "after": "screen",
+      "slot": 2
     }
   }
 }

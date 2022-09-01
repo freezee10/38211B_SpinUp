@@ -7,6 +7,7 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+    pros::lcd::initialize();
     driveInit();
     //scrMain();
 }
@@ -58,8 +59,10 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    enablePID = false;
+    //enablePID = false;
     pros::Task drivePIDTask(drivePID);
+    //pros::Task lcdTask(lcd);
+    //pros::Task indexerOnTask(indexerOn);
     //pros::Task flywheelTask(flywheel);
     //pros::Task driveTask(drive);
         

@@ -46,6 +46,7 @@
 #include "subsystems/gui/gui.hpp"
 #include "subsystems/drive.hpp"
 #include "subsystems/flywheel.hpp"
+#include "subsystems/lcd.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

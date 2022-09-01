@@ -19,11 +19,15 @@ extern pros::Motor rightBack; //4 :4
 extern pros::Motor flywheelMotor1; //5 :11
 extern pros::Motor flywheelMotor2; //6 :12
 
+//indexer motors
+extern pros::Motor indexer; //7 :13
+
 
 /////////////////////////////////
 //GLOBAL VARIABLES
 /////////////////////////////////
 
-extern bool enablePID;
-extern bool resetMotors;
-extern int autoSelected;
+extern bool enablePID; //drive.cpp
+extern bool resetMotors; //drive.cpp
+
+extern int autoSelected; //gui.cpp

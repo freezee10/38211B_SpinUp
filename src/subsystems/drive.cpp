@@ -1,6 +1,10 @@
 #include "main.h"
 #include "pros/misc.h"
+#include <string>
 
+
+bool enablePID;
+bool resetMotors;
 
 /////////////////////////////////
 //DRIVER CONTROL
@@ -59,14 +63,8 @@ void drive()
 
     setDrive(left, right);
 
-    
-  
-
-   
-
-
-
     pros::delay(10);
+
     }
 }
 
@@ -78,15 +76,29 @@ void drive()
 ///////////////////////////
 
 
-float kP = 1;
-//float kI = 0.0;
-float kD = 0.0;
-float turnkP = 0.0;
-//float turnkI = 0.0;
-float turnkD = 0.0;
+double kP = 1.0; //0.15
+double kI = 0.0; //0.0
+double kD = 0.0; //0.01
+double turnkP = 0.0; //0.7
+double turnkI = 0.0; //0.0001
+double turnkD = 0.0; //0.07
 
-int desiredValue = 20;
-int desiredTurnValue = 0;
+double revolutions(double numOfRev)
+{
+    double answer = numOfRev * 360;
+
+    return answer;
+}
+
+double inches(double numOfInches)
+{
+    double answer = numOfInches / 12.9590696961; //12.9590696961" is the circumfrence of the 4" omnis
+    
+    return revolutions(answer);
+}
+
+int desiredValue = inches(26); //degrees | testing 2100
+int desiredTurnValue = 1105; //counts | testing 1105 = 90 deg
 
 int error; //Sensor Value - Desired Value || Positional Value
 int prevError; //Pos 10ms ago
@@ -106,7 +118,6 @@ void drivePID()
 
     while(enablePID)
     {
-
         while(resetMotors)
         {
             leftFront.set_zero_position(0);
@@ -122,42 +133,58 @@ void drivePID()
             resetMotors = false;
         }
 
-        float leftMotorPosition = leftBack.get_position();
-        float rightMotorPosition = rightBack.get_position();
+        int leftMotorPosition = (leftBack.get_position() * 3)/ 7;
+        int rightMotorPosition = (rightBack.get_position() * 3)/ 7;
 
-        float averagePosition = (leftMotorPosition + rightMotorPosition)/2;
-        
+
+
+        int averagePosition = (leftMotorPosition + rightMotorPosition)/2;
+
         //Potential
-        error = averagePosition - desiredValue;
+        error = desiredValue - averagePosition;
+        //Integral
+        totalError = totalError + error;
         //Derivative
         derivative = error - prevError;
-        //Integral
-        //totalError += error;
-
-        int lateralMotorPower =  error * kP + derivative * kD;
+        
 
 
-
-
-        float turnDiff = (leftMotorPosition - rightMotorPosition);
+        int turnDiff = (leftMotorPosition - rightMotorPosition);
 
         //Potential
-        turnError = turnDiff - desiredTurnValue;
+        turnError = desiredTurnValue - turnDiff; 
+        //Integral
+        turnTotalError += turnError;
         //Derivative
         turnDerivative = turnError - turnPrevError;
-        //Integral
-        //turnTotalError += turnError;
-
-        int turnMotorPower =  turnError * turnkP + turnDerivative * turnkD;
-
-
-
-        setDrive(lateralMotorPower + turnMotorPower, lateralMotorPower - turnMotorPower);
 
 
 
         prevError = error;
         turnPrevError = turnError;
+
+        int lateralMotorPower =  error * kP + totalError * kI + derivative * kD;
+        int turnMotorPower =  turnError * turnkP + turnTotalError * turnkI + turnDerivative * turnkD;
+
+        setDrive(lateralMotorPower + turnMotorPower, lateralMotorPower - turnMotorPower);
+
+
+        std::string str = std::to_string(averagePosition);
+        pros::lcd::set_text(0, "avgPos");
+        pros::lcd::set_text(1, str);
+
+        std::string str1 = std::to_string(error);
+        pros::lcd::set_text(2, "error");
+        pros::lcd::set_text(3, str1);
+        
+        std::string str2 = std::to_string(totalError);
+        pros::lcd::set_text(4, "totalError");
+        pros::lcd::set_text(5, str2);
+
+        std::string str3 = std::to_string(lateralMotorPower);
+        pros::lcd::set_text(6, "lateralMotorPower");
+        pros::lcd::set_text(7, str3);
+
         pros::delay(10);
 
     }
@@ -177,4 +204,7 @@ void driveInit()
     leftBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     rightFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     rightBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    indexer.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+   
+
 }
