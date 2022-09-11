@@ -83,21 +83,21 @@ double turnkP = 0.0; //0.7
 double turnkI = 0.0; //0.0001
 double turnkD = 0.0; //0.07
 
-double revolutions(double numOfRev)
+double revolutions(double numOfRev) //makes 360deg of rotation = 1 revolution
 {
     double answer = numOfRev * 360;
 
     return answer;
 }
 
-double inches(double numOfInches)
+double inches(double numOfInches) //converts inches to motor revolutioins
 {
     double answer = numOfInches / 12.9590696961; //12.9590696961" is the circumfrence of the 4" omnis
     
     return revolutions(answer);
 }
 
-int desiredValue = inches(26); //degrees | testing 2100
+int desiredValue = inches(26);
 int desiredTurnValue = 1105; //counts | testing 1105 = 90 deg
 
 int error; //Sensor Value - Desired Value || Positional Value
