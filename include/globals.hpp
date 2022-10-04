@@ -1,3 +1,4 @@
+#include "pros/adi.hpp"
 #include "pros/motors.hpp"
 #include "pros/misc.hpp"
 
@@ -16,12 +17,15 @@ extern pros::Motor leftBack; //3 :3
 extern pros::Motor rightBack; //4 :4
 
 //flywheel motors
-extern pros::Motor flywheelMotor1; //5 :11
-extern pros::Motor flywheelMotor2; //6 :12
+//extern pros::Motor flywheelMotor1; //5 :11
+//extern pros::Motor flywheelMotor2; //6 :12
 
 //indexer motors
-extern pros::Motor indexer; //7 :13
+//extern pros::Motor indexer; //7 :13
 
+extern pros::ADIEncoder leftEncoder; //:A+B 
+extern pros::ADIEncoder rightEncoder; //:C+D 
+extern pros::ADIEncoder backEncoder; //:E+F 
 
 /////////////////////////////////
 //GLOBAL VARIABLES

@@ -41,7 +41,7 @@ void drive()
 
     int power = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int turn = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-
+        //hi ---- hello :O
     int left = power + turn;
     int right = power - turn;
 
@@ -204,7 +204,7 @@ void driveInit()
     leftBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     rightFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     rightBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-    indexer.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    //indexer.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
    
 
 }
