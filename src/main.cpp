@@ -59,7 +59,9 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    //enablePID = false;
+    enablePID = false;
+    pros::delay(1500);
+    enablePID = true;
     pros::Task drivePIDTask(drivePID);
     //pros::Task lcdTask(lcd);
     //pros::Task indexerOnTask(indexerOn);

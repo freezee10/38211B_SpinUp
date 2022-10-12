@@ -25,3 +25,5 @@ pros::Motor rightBack(4, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_
 pros::ADIEncoder leftEncoder(1, 2, false); //:A+B 
 pros::ADIEncoder rightEncoder(3, 4, true); //:C+D 
 pros::ADIEncoder backEncoder(5, 6, false);  //:E+F 
+
+pros::Imu inertial (8);

@@ -76,10 +76,10 @@ void drive()
 ///////////////////////////
 
 
-double kP = 1.0; //0.15
+double kP = 0.0; //0.285
 double kI = 0.0; //0.0
-double kD = 0.0; //0.01
-double turnkP = 0.0; //0.7
+double kD = 0.0; //0.0
+double turnkP = 0.4; //0.7
 double turnkI = 0.0; //0.0001
 double turnkD = 0.0; //0.07
 
@@ -92,13 +92,15 @@ double revolutions(double numOfRev) //makes 360deg of rotation = 1 revolution
 
 double inches(double numOfInches) //converts inches to motor revolutioins
 {
-    double answer = numOfInches / 12.9590696961; //12.9590696961" is the circumfrence of the 4" omnis
+    double answer = numOfInches / 8.6393797974; //12.9590696961" is the circumfrence of the 4" omnis
     
     return revolutions(answer);
 }
 
-int desiredValue = inches(26);
-int desiredTurnValue = 1105; //counts | testing 1105 = 90 deg
+
+
+int desiredValue = inches(12);
+int desiredTurnValue = 350; //counts | testing 1105 = 90 deg
 
 int error; //Sensor Value - Desired Value || Positional Value
 int prevError; //Pos 10ms ago
@@ -113,7 +115,7 @@ int turnTotalError; //turnTotalError + turnError
 
 void drivePID()
 {
-    enablePID = true;
+
     resetMotors = true;
 
     while(enablePID)
@@ -133,12 +135,12 @@ void drivePID()
             resetMotors = false;
         }
 
-        int leftMotorPosition = (leftBack.get_position() * 3)/ 7;
-        int rightMotorPosition = (rightBack.get_position() * 3)/ 7;
+        int leftSidePosition = leftEncoder.get_value();
+        int rightSidePosition = rightEncoder.get_value();
+        int headingPosition = inertial.get_heading();
 
 
-
-        int averagePosition = (leftMotorPosition + rightMotorPosition)/2;
+        int averagePosition = (leftSidePosition + rightSidePosition)/2;
 
         //Potential
         error = desiredValue - averagePosition;
@@ -149,7 +151,7 @@ void drivePID()
         
 
 
-        int turnDiff = (leftMotorPosition - rightMotorPosition);
+        int turnDiff = (leftSidePosition - rightSidePosition);
 
         //Potential
         turnError = desiredTurnValue - turnDiff; 
@@ -169,20 +171,20 @@ void drivePID()
         setDrive(lateralMotorPower + turnMotorPower, lateralMotorPower - turnMotorPower);
 
 
-        std::string str = std::to_string(averagePosition);
-        pros::lcd::set_text(0, "avgPos");
+        std::string str = std::to_string(headingPosition);
+        pros::lcd::set_text(0, "headingPos");
         pros::lcd::set_text(1, str);
 
-        std::string str1 = std::to_string(error);
+        std::string str1 = std::to_string(turnError);
         pros::lcd::set_text(2, "error");
         pros::lcd::set_text(3, str1);
         
-        std::string str2 = std::to_string(totalError);
-        pros::lcd::set_text(4, "totalError");
+        std::string str2 = std::to_string(turnTotalError);
+        pros::lcd::set_text(4, "turnTotalError");
         pros::lcd::set_text(5, str2);
 
-        std::string str3 = std::to_string(lateralMotorPower);
-        pros::lcd::set_text(6, "lateralMotorPower");
+        std::string str3 = std::to_string(turnMotorPower);
+        pros::lcd::set_text(6, "turnMotorPower");
         pros::lcd::set_text(7, str3);
 
         pros::delay(10);
@@ -200,6 +202,10 @@ void drivePID()
 
 void driveInit()
 {
+
+    leftEncoder.reset();
+    rightEncoder.reset();
+    inertial.tare();
     leftFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     leftBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
     rightFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);

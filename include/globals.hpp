@@ -1,4 +1,5 @@
 #include "pros/adi.hpp"
+#include "pros/imu.hpp"
 #include "pros/motors.hpp"
 #include "pros/misc.hpp"
 
@@ -26,6 +27,8 @@ extern pros::Motor rightBack; //4 :4
 extern pros::ADIEncoder leftEncoder; //:A+B 
 extern pros::ADIEncoder rightEncoder; //:C+D 
 extern pros::ADIEncoder backEncoder; //:E+F 
+
+extern pros::Imu inertial; //:5
 
 /////////////////////////////////
 //GLOBAL VARIABLES
