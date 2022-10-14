@@ -12,8 +12,10 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 //drivetrain motors
 pros::Motor leftFront(1, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_DEGREES); //1
 pros::Motor leftBack(2, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_DEGREES); //2
+pros::Motor_Group left({leftFront, leftBack});
 pros::Motor rightFront(3, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_DEGREES); //3
 pros::Motor rightBack(4, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_DEGREES); //4
+pros::Motor_Group right({rightFront, rightBack});
 
 //flywheel motors
 //pros::Motor flywheelMotor1(11, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_DEGREES); //5

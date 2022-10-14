@@ -62,7 +62,7 @@ void opcontrol() {
     enablePID = false;
     pros::delay(1500);
     enablePID = true;
-    pros::Task drivePIDTask(drivePID);
+    pros::Task PIDTask(PID);
     //pros::Task lcdTask(lcd);
     //pros::Task indexerOnTask(indexerOn);
     //pros::Task flywheelTask(flywheel);

@@ -45,7 +45,8 @@
 //#include "pros/api_legacy.h"
 #include "globals.hpp"
 #include "subsystems/gui/gui.hpp"
-#include "subsystems/drive.hpp"
+#include "subsystems/drive/drive.hpp"
+#include "subsystems/drive/PID.hpp"
 #include "subsystems/flywheel.hpp"
 #include "subsystems/lcd.hpp"
 
