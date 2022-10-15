@@ -79,31 +79,31 @@ static lv_style_t scr3BtnmStylePR;
 //BUTTON MAPS/GRIDS
 /////////////////////////////////
 
+char bufferBlue[2];
+char bufferRed[2];
+char bufferSkills[2];
 
-static lv_res_t blueBtnmAction(lv_obj_t *, const char *)
+
+lv_res_t blueBtnmAction(lv_obj_t *, const char *)
 {
-
     uint16_t btnid = lv_btnm_get_toggled(scr1Btnm);
-
-    char buffer[2];
-	sprintf(buffer, "%i", btnid);
-    pros::delay(100);
-	lv_label_set_text(scr1Label, buffer);
-
-    btnid = lv_btnm_get_toggled(scr1Btnm);
+	sprintf(bufferBlue, "%i", btnid);
 
     return LV_RES_OK;
 }
 
-static lv_res_t redBtnmAction(lv_obj_t *, const char *)
+lv_res_t redBtnmAction(lv_obj_t *, const char *)
 {
-
+    uint16_t btnid = lv_btnm_get_toggled(scr2Btnm);
+	sprintf(bufferRed, "%i", btnid);
 
     return LV_RES_OK;
 }
 
-static lv_res_t skillsBtnmAction(lv_obj_t *, const char *)
+lv_res_t skillsBtnmAction(lv_obj_t *, const char *)
 {
+    uint16_t btnid = lv_btnm_get_toggled(scr3Btnm);
+	sprintf(bufferSkills, "%i", btnid);
 
 
     return LV_RES_OK;
@@ -180,6 +180,11 @@ void scrBlue()
     lv_label_set_text(scr1Label, "balls");
     lv_obj_align(scr1Label, scr1, LV_ALIGN_CENTER, 0, 50);
 
+    while(true) {
+    	lv_label_set_text(scr1Label, bufferBlue);
+        pros::delay(10);
+    }
+
     lv_scr_load(scr1);
 
 }
@@ -221,6 +226,11 @@ void scrRed()
     lv_obj_set_size(scr2Btnm, 450, 100);
     lv_obj_align(scr2Btnm, scr2, LV_ALIGN_CENTER, 0, -25);
 
+    while(true) {
+    	lv_label_set_text(scr2Label, bufferRed);
+        pros::delay(10);
+    }
+
     lv_scr_load(scr2);
 }
 
@@ -260,6 +270,11 @@ void scrSkills()
     lv_btnm_set_toggle(scr3Btnm, true, 0);
     lv_obj_set_size(scr3Btnm, 450, 100);
     lv_obj_align(scr3Btnm, scr3, LV_ALIGN_CENTER, 0, -25);
+
+    while(true) {
+    	lv_label_set_text(scr3Label, bufferSkills);
+        pros::delay(10);
+    }
 
     lv_scr_load(scr3);
 }
