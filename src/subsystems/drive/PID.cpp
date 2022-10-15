@@ -53,11 +53,11 @@ void PID()
     {
         while(resetMotors)
         {
-            left.set_zero_position(0);
-            right.set_zero_position(0);
+            leftChassis.set_zero_position(0);
+            rightChassis.set_zero_position(0);
 
-            left.tare_position();
-            right.tare_position();
+            leftChassis.tare_position();
+            rightChassis.tare_position();
 
             resetMotors = false;
         }

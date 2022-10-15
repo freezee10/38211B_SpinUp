@@ -7,10 +7,8 @@
 
 void setDrive(int left, int right)
 {
-    leftFront.move(left);
-    leftBack.move(left);
-    rightFront.move(right);
-    rightBack.move(right);
+    leftChassis.move(left);
+    rightChassis.move(right);
 }
 
 void drive()
